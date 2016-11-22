@@ -12,9 +12,10 @@ type Database struct {
 }
 
 const (
-	DB_USER = "postgres"
-	DB_PASS = "K3yf4t0n"
-	DB_NAME = "db_prog"
+	DB_HOST = "ec2-107-22-251-225.compute-1.amazonaws.com"
+	DB_USER = "vcpyraxvhxkcxc"
+	DB_PASS = "gHkAPj8weKd4a8_KGH_y1-bOYh"
+	DB_NAME = "daalefbcj1ekfm"
 )
 
 func CheckError(err error) {
@@ -24,7 +25,7 @@ func CheckError(err error) {
 }
 
 func (d Database) initDb() *gorm.DB {
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", DB_USER, DB_PASS, DB_NAME)
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DB_HOST, DB_USER, DB_PASS, DB_NAME)
 	db, err := gorm.Open("postgres", dbinfo)
 	if err != nil {
 		CheckError(err)

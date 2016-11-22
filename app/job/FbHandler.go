@@ -15,7 +15,7 @@ var FACEBOOK = &oauth2.Config{
 	ClientSecret: "4daa48f88b21adf49913e3d9abed3faa",
 	Scopes:       []string{"email", "user_birthday", "user_location", "user_about_me"},
 	Endpoint:     facebook.Endpoint,
-	RedirectURL:  "http://localhost:9000/authfb",
+	RedirectURL:  "https://trawanganserver.herokuapp.com/authfb",
 }
 
 func (fb FbHandler) GetUrlFb() string {

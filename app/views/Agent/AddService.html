@@ -1,0 +1,54 @@
+<!-- Modal Add Service -->
+		<div class="modal fade" id="modalAddService" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form action="{{url "Agent.SetService"}}" method="POST" enctype="multipart/form-data">
+				        <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						    <h4 class="modal-title" id="myModalLabel">Service Baru</h4>
+					    </div>
+						<div class="modal-body">
+								<img class="img-responsive img-thumbnail" src="" id="blah" >
+								{{with $field := field "foto" .}}
+								<div class="input-group {{$field.ErrorClass}} form-child " id="foto-uploader">
+									<input class="form-control" type="file" required name="{{$field.Name}}" id="uploader" aria-describedby="basic-addon" onchange="addInput('foto-uploader')">
+	                            	<label for="uploader">Foto Layanan</label>
+	                            </div>
+	                            {{end}}
+							    {{with $field := field "agentService.Service" .}}
+							    <div class="input-group {{$field.ErrorClass}} form-child">
+							        <span class="input-group-addon" id="basic-addon1" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
+							        <input type="text" class="form-control" required name="{{$field.Name}}" aria-describedby="basic-addon1" value="{{$field.Flash}}" placeholder="Nama Service">
+							    </div>
+							    {{end}}
+							    {{with $field := field "agentService.Kategori" .}}
+								<div class="input-group form-child">
+									<span class="input-group-addon" id="basic-addon1" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
+							        <input type="text" class="form-control" name="{{$field.Name}}" required aria-describedby="basic-addon1" value="{{$field.Flash}}" placeholder="Nama Kategori">
+							    </div>
+							    {{end}}
+							    {{with $field := field "agentService.Price" .}}
+							    <div class="input-group {{$field.ErrorClass}} form-child">
+							        <span class="input-group-addon" id="basic-addon3" ><img src="/public/img/user.png" height="15px" width="15px"></span>
+							   		<input type="number" class="form-control" name="{{$field.Name}}" required aria-describedby="basic-addon3" value="{{$field.Flash}}" placeholder="Harga">
+							    </div>
+							    {{end}}
+							    {{with $field := field "agentService.Desc" .}}
+							    <div class="input-group {{$field.ErrorClass}} form-child">
+							        <span class="input-group-addon" id="basic-addon2" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
+							        <textarea class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon2" placeholder="Description">{{$field.Flash}}</textarea>
+							    </div>
+							    {{end}}
+
+							    {{template "flash.html" .}}
+							           
+	        
+						</div>
+						<div class="modal-footer">
+							<a href="{{url "Agent.ServiceAgent"}}"><button type="button" class="btn btn-light-grey">Close</button></a>
+							<input class="btn btn-primary btn-sm" type="submit" value="Save" >
+						</div>
+					</form>
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->		
+		</div>

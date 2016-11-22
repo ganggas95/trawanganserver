@@ -1,0 +1,70 @@
+package controllers
+
+import (
+	"github.com/ganggas95/trawanganserver/app/job"
+	"github.com/ganggas95/trawanganserver/app/models"
+	"github.com/revel/revel"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type Api struct {
+	App
+}
+
+type Error404 struct {
+	TextError string
+	TypeError string
+}
+
+func (api Api) Auth(username, password string) revel.Result {
+	user := api.GetUser(username)
+
+	data := make(map[string]interface{})
+	if &user != nil {
+		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
+		agent := api.DetectAgent(user.UID)
+		if err == nil {
+			user.Agent = agent
+			data["error"] = nil
+			data["user"] = user
+			return api.RenderJson(data)
+		} else {
+			error404 := Error404{TextError: "Username And Password is invalid!", TypeError: "Valid User"}
+			data["error"] = error404
+			data["user"] = nil
+			return api.RenderJson(data)
+		}
+	}
+	data["user"] = nil
+	return api.RenderJson(data)
+}
+
+func (c Api) AddUser(user models.User, password string) revel.Result {
+	c.Validation.Required(password)
+	user.Validation(c.Validation)
+	if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.RenderJson(c)
+	}
+	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	tok := job.RandomToken(32)
+	err3 := job.SendToken(user.Email, tok)
+	CheckError(err3)
+	var token models.UserToken
+	token.AccessToken = tok
+	token.User = user
+	err := c.Database.initDb().Create(&token)
+	err = c.Database.initDb().Create(&user)
+	CheckError(err.Error)
+	return c.RenderJson(user)
+}
+
+func (api Api) DetectAgent(userId int64) models.AgentTravel {
+	var agent models.AgentTravel
+	db := api.initDb().Where("user_id = ?", userId).Find(&agent)
+	if db.RecordNotFound() {
+
+	}
+	return agent
+}

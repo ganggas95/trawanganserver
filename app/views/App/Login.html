@@ -1,0 +1,35 @@
+{{set . "title" "Login User"}} {{template "header.html" . }}
+
+<div class="main">
+    <div class="box-left ">
+        <div align="center">
+            <h1 font-color="black">Sign In</h1>
+        </div>
+        <form action="{{url "App.AuthApp"}}" method="POST" accept-charset="utf-8">
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" value="" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" value="" placeholder="Password">
+            </div>
+            <input type="submit" class="btn btn-primary btn-md" value="Register">
+        </form>
+    </div>
+
+    <div class="box-right page-divider">
+
+        <div align="center" class="sos-content">
+            <h1 font-color="white">Sign In</h1>
+            <i>with one of your social profile</i><br>
+            <img src="/public/img/f.png" />
+            <img src="/public/img/tw.png" />
+            <img src="/public/img/g.png" />
+        </div>
+        <br/>
+        <center>Don't have an account ?</center>
+        <center><a href="{{url "App.Register"}}"> Register</center>
+            <span>OR</span>
+        </div>
+    </div>
+
+{{template "footer.html" . }}

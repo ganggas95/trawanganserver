@@ -1,0 +1,61 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+module:testrunner
+
+GET     /                               App.Index
+GET     /login                          App.Login
+GET     /daftar                         App.Register
+GET     /daftar_with_fb                 App.RegisterWithFacebook
+#GET    /daftar_with_google             App.RegisterWithGoogle
+GET     /daftar_with_gplus              App.RegisterWithGPlus
+GET     /daftar_with_twit               App.RegisterWithTwit
+GET 	/setup						    App.SetUp
+POST    /auth                           App.AuthApp
+GET     /verifygplus                    App.GplusAuth
+GET 	/verifyaccount					App.VerifyAcoount
+GET     /verifytwit                     App.AuthTwit
+GET     /authfb                         App.AuthFb
+POST    /tambahuser                     App.AddUser
+POST	/tambahusersosmed				App.AddUserWithSosmed
+#GET 	/daftarwithtwit					App.RegisterWithTwit
+GET 	/unverify						Persons.UnverifyAcc
+GET     /logout                         App.Logout
+GET     /person/data                    Persons.Show
+GET     /person/list                    Persons.List
+GET     /person/:id/data                Persons.Show
+POST    /person/:id/hapus               Persons.Delete
+GET     /person/tambah                  Persons.Tambah
+POST    /person/tambah                  Persons.AddData
+GET     /person/ubah/:id                Persons.GetData
+POST    /person/ubah                    Persons.Ubah
+GET 	/agent/							Agent.Index
+GET 	/agent/register 				Agent.RegisterAgent
+POST	/agent/register 				Agent.AddAgentFromUser
+GET 	/agent/service 					Agent.ServiceAgent
+GET 	/agent/order 					Agent.OrderAgent
+GET 	/agent/chat						Agent.ChatAgent
+GET 	/agent/member					Agent.MemberAgent
+GET 	/agent/logout 					Agent.Logout
+POST 	/agent/addservice				Agent.SetService
+POST 	/agent/deleteservice			Agent.DeleteService
+POST 	/agent/activeservice			Agent.ActiveService
+POST 	/agent/disableservice			Agent.DisableService
+##User Setting
+GET 	/setavatar 						App.UploadFoto
+POST	/setavatar    					App.Upload
+
+##API ROUTER
+
+POST /api/v1/auth 						Api.Auth
+POST /api/v1/adduser					Api.AddUser
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+
+# Catch all
+*       /:controller/:action                    :controller.:action

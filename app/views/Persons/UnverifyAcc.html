@@ -1,0 +1,10 @@
+{{set . "title" "Your Account Unverifyed"}}
+{{template "header.html" .}}
+
+<div class="container">
+	{{if .flash}}
+            {{template "flash.html" .}}
+            {{end}}
+</div>
+
+{{template "footer.html" .}}

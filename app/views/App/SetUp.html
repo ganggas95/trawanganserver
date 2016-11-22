@@ -1,0 +1,62 @@
+{{set . "title" "Register User"}}
+{{template "header.html" . }}
+
+<div class="container">
+    <div class="register-form">
+    {{if .users}}
+        <form action="{{url "App.AddUserWithSosmed"}}" method="POST" style="padding:none;margin-bottom:10px;">
+        <div  align="center"><img class="form-child" src="../../../public/img/logo.png" height="50px" width="50px"></div>
+        <div class="form-child" align="center"><h1 class="h3">Travel Agent Directory</h1></div>
+        <div class="form-child-button" align="center">
+            <h4 style="color:#a8aa9e">Register</h4>
+        </div>
+        {{if .users.FbId}}
+        <input type="hidden" name="sosmedid" value="{{ .users.FbId }}">
+        <input type="hidden" name="tipe" value="fb">
+        {{else if .users.GplusId}}
+        <input type="hidden" name="sosmedid" value="{{ .users.GplusId }}">
+        <input type="hidden" name="tipe" value="gplus">
+        {{else if .users.TwitId}}
+        <input type="hidden" name="sosmedid" value="{{ .users.TwitId }}">
+        <input type="hidden" name="tipe" value="twitter">
+        {{end}}
+        <div class="input-group form-child">
+            <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
+            <input type="text" class="form-control" name="email" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{ .users.Email}}">
+        </div>
+        <div class="input-group form-child">
+            <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
+            <input type="text" class="form-control" name="nama" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{ .users.Nama}}">
+        </div>
+        <div class="input-group form-child">
+            <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/user.png" height="15px" width="15px"></span>
+            <input type="text" class="form-control" name="username" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{ .users.Username}}">
+        </div>
+        <div class="input-group form-child">
+            <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
+            <input type="password" class="form-control" name="password" aria-describedby="basic-addon4" id="password" placeholder="Password">
+        </div>
+        <div class="input-group form-child">
+            <span class="input-group-addon" id="basic-addon5" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
+            <input type="password" class="form-control" name="verifyPassword" aria-describedby="basic-addon5" id="verifyPassword"  placeholder="Verify  Password">
+        </div>
+        {{if .flash}}
+            {{template "flash.html" .}}
+            {{end}}
+        <div class="form-child-button" align="center" style="margin-top:10px;">
+            <input class="btn btn-primary btn-sm form-control" type="submit" value="Done" style="width:50%;">
+        </div>
+        </form>
+    {{else}}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> You Don't have any process.
+        </div>
+    {{end}}
+    </div>
+    <script>
+    $("body").on("contextmenu", "img", function(e) {
+        return false;
+    });
+</script>
+    {{template "footer.html" . }}

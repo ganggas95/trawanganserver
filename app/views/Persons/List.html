@@ -1,0 +1,50 @@
+{{set . "title" "Data Masyarakat"}}
+{{template "header.html" .}}
+<div class="container">
+
+    <div class="main" >
+
+        <div class="h1" align="center">Data List</div>
+        <!-- Main Form -->
+        <div>
+            <a href="{{url "Persons.Tambah"}}" style="text-decoration: none;color:#fff">
+                <button class="btn btn-primary btn-sm">Tambah</button>
+            </a>
+        </div>
+        <hr/>
+
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <td>Nama</td>
+                    <td>Alamat</td>
+                    <td>Tempat Lahir</td>
+                    <td>Tanggal Lahir</td>
+                    <td>Pekerjaan</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .persons}}
+            <a href="{{url "Persons.GetData" .IdPerson}}"><tr>
+                <td>{{.Nama}}</td>
+                <td>{{.Alamat}}</td>
+                <td>{{.TempatLahir}}</td>
+                <td>{{.TanggalLahir.Format "01-02-2006"}}</td>
+                <td>{{.Pekerjaan}}</td>
+                <td><a href="{{url "Persons.Show" .IdPerson}}">Lihat</a>||
+                    <form id="d{{.IdPerson}}" method="POST" action="/person/{{.IdPerson}}/hapus">
+                        <a href="javascript:document.getElementById('d{{.IdPerson}}').submit();">Hapus</a>
+
+                    </form>
+                    <a href="{{url "Persons.GetData" .IdPerson}}">Ubah</a>|
+                </td>
+            </tr>
+            </a>
+            {{end}}
+            </tbody>
+        </table>
+        <div align="center">{{template "flash.html" .}}</div>
+    </div>
+</div>
+{{template "footer.html" .}}

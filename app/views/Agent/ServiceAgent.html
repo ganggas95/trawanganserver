@@ -1,0 +1,96 @@
+{{set . "title" "Agent"}} {{template "header.html" .}}
+		<div id="main" class="clearfix">
+
+			<div class="secInfo">
+				<h1 class="secTitle">Services Agent</h1>
+				<span class="secExtra">Manage Your Service here</span>
+			</div> <!-- /SecInfo -->
+
+			<div class="fluid">
+				
+				<div class="widget leftcontent grid12" >
+					<div class="widget-header" >
+						<a href="#modalAddService" role="button" class="icon-button" data-toggle="modal" data-target="#modalAddService" style="margin-left: 30px;"><i class="glyphicon glyphicon-plus"></i></a>
+						<div class="widget-controls">
+	  						<div class="btn-group xtra"> <!-- btn dd -->
+								<a href="#" onclick="return false;" class="icon-button dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
+								<ul class="dropdown-menu pull-right">
+	                                <li><a href="#"><i class="fa fa-pencil"></i> Edit</a></li>
+	                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+	                                <li><a href="#"><i class="fa fa-ban"></i> Ban</a></li>
+	                                <li class="divider"></li>
+	                                <li><a href="#"> Other actions</a></li>
+	                            </ul>
+                            </div><!-- /btn dd -->
+						</div>
+					</div>
+				</div>
+				<div class="widget leftcontent pad10">
+
+					{{range $key, $value := .services}}
+					<div class="widget-header">
+						<h3 class="widget-title">{{.Service}}</h3>
+						<div class="widget-controls" >
+							<div class="btn-group xtra"> <!-- btn dd -->
+										
+								<a href="#" onclick="return false;" class="icon-button dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
+								<ul class="dropdown-menu pull-right">
+				                    <li><a href="#"><i class="fa fa-pencil"></i> Edit</a></li>
+				                    <li><a href="#modalDeleteService" data-id="{{.IdService}}" class="delete-dialog" role="button" data-toggle="modal" data-target="#modalDeleteService"><i class="glyphicon glyphicon-trash"></i> Delete</a> </li>
+				                    <li>
+				                    	{{if eq .Status false }}
+				                    	<a href="javascript:document.getElementById('d{{.IdService}}').submit();"><i class="fa fa-ban"></i> Active</a> 
+					                    <form id="d{{.IdService}}" method="POST" action="{{url "Agent.ActiveService"}}">
+				                    		<input type="hidden" name="idService" value="{{.IdService}}">
+	                        				
+                    					</form>
+				                    	{{else}}
+				                    	<a href="javascript:document.getElementById('d{{.IdService}}').submit();"><i class="fa fa-ban"></i> Disable</a>
+					                    <form id="d{{.IdService}}" method="POST" action="{{url "Agent.DisableService"}}">
+				                 			<input type="hidden" name="idService" value="{{.IdService}}">
+                    					</form>
+                    					{{end}}
+                    				</li>
+				                </ul>
+			                </div><!-- /btn dd -->
+		                </div>
+		            </div>
+		            <div class="widget-content pad10">
+		            <div class="comment" style="clear: both;">
+
+						<div class="comment-header">
+							<div class="comment-person">
+								<div class="comment-img">
+									<img src="{{.Foto.Dir}}{{.Foto.Foto}}" rel="comment-1">
+									
+								</div>
+								<div class="comment-hex hex-green"></div>
+							</div>
+							<div class="comment-info">
+								<div class="c-time">{{.Price}}</div>
+								<div class="c-time">{{.Kategori}}</div>
+							</div>
+							
+							
+							
+							<div class="c-ip">
+
+								<strong>Status:</strong> <span class="ip">{{if .Status}} Active {{else}} Not Active{{end}}</span>
+							</div>
+
+						</div> <!-- /comment-header -->
+						<div class="comment-text">
+							{{.Desc}}
+						</div> <!-- /comment-text -->
+					</div> <!-- /comment -->
+		            </div>
+					
+					
+					{{end}}
+				</div>	
+				{{template "flash.html" .}}
+			</div>  <!-- /widget -->
+		</div> <!-- /main -->
+		 {{template "Agent/AddService.html" .}}
+		 {{template "Agent/DeleteService.html" .}}
+ {{template "footer.html" .}}

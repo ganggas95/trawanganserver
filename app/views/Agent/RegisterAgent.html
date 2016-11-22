@@ -1,0 +1,60 @@
+{{set . "title" "Agent"}}
+
+{{template "header.html" .}}
+
+<div class="container-fluid">
+	<div class="register-form">
+
+        <form action="{{url "Agent.AddAgentFromUser"}}" method="POST" style="padding:none;margin-bottom:10px;">
+            <div  align="center"><img class="form-child" src="../../../public/img/logo.png" height="50px" width="50px"></div>
+            <div class="form-child" align="center"><h1 class="h3">Travel Agent Directory</h1></div>
+            <div class="form-child-button" align="center">
+                <h4 style="color:#a8aa9e">Register User Baru</h4>
+            </div>
+            {{with $field := field "travelAgent.NamaAgent" .}}
+            <div class="input-group {{$field.ErrorClass}} form-child">
+                <span class="input-group-addon" id="basic-addon1" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
+                <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon1" value="{{$field.Flash}}" placeholder="Nama Agent"><span class="input-group-addon error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "travelAgent.Alamat" .}}
+            <div class="input-group {{$field.ErrorClass}} form-child">
+                <span class="input-group-addon" id="basic-addon2" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
+                <textarea class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon2" placeholder="Your Address">{{$field.Flash}}</textarea><span class="input-group-addon error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "travelAgent.Notelp" .}}
+            <div class="input-group {{$field.ErrorClass}} form-child">
+                <span class="input-group-addon" id="basic-addon3" ><img src="../../../public/img/user.png" height="15px" width="15px"></span>
+                <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon3" value="{{$field.Flash}}" placeholder="No Telp/Hp"><span class="input-group-addon error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "travelAgent.Email" .}}
+            <div class="input-group form-child">
+                <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
+                <input type="email" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" placeholder="Password"><span class="input-group-addon error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "travelAgent.Website" .}}
+            <div class="input-group {{$field.ErrorClass}} form-child">
+                <span class="input-group-addon" id="basic-addon5" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
+                <input type="url" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon5" placeholder="Your Website">
+                <span class="input-group-addon error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{if .flash}}
+            {{template "flash.html" .}}
+            {{end}}
+            <div class="form-child-button" align="center" style="margin-top:10px;">
+                <input class="btn btn-primary btn-sm form-control" type="submit" value="Register" style="width:50%;">
+            </div>
+        </form>
+</div>
+<script>
+    $("body").on("contextmenu", "img", function(e) {
+        return false;
+    });
+</script>
+</div>
+
+{{template "footer.html" .}}

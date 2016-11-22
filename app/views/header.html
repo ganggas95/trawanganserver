@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{.title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
+     <link rel="stylesheet" href="/public/css/font-awesome-4.0.3/css/font-awesome.min.css">
+    <script src="/public/js/jquery-2.2.4.min.js"></script>
+    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+     {{if .agent}}
+    <link rel="stylesheet" type="text/css" href="/public/css/dashboard.css">
+    <link rel="stylesheet" href="/public/css/jquery-ui.css" />{{else}}
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css"> {{end}}
+    <link rel="shortcut icon" type="image/png" href="/public/img/logo.png">
+    {{range .moreStyles}}
+    <link rel="stylesheet" type="text/css" href="/public/{{.}}"> {{end}} {{range .moreScripts}}
+    <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+    {{end}}
+    
+</head>
+
+<body>
+    {{if .agent}}
+
+<div id="wrapper" class="container">
+
+    <div id="top">
+        <div id="topBar">
+            <div class="wrapper20">
+                <a class="logo" href="#" title="">
+                    <img src="/public/img/logo.png" height="40" rel="logo">
+                </a>
+                <div class="topNav clearfix">
+                    <input class="topSearch" type="text" placeholder="Search...">
+                    <ul class="tNav clearfix">
+                        <li><a href="#" onclick="return false;"><i class="glyphicon glyphicon-search"></i></a></li>
+                        <li>
+                            <a data-toggle="dropdown" href="#" class="dropdown-toggle"><i class="glyphicon glyphicon-cog"></i></a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-trash"></i> Delete</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-ban-circle"></i> Ban</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"> Other actions</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{{url "Agent.ChatAgent"}}"><i class="glyphicon glyphicon-comment"></i></a>
+                            <span class="badge badge-tNav">4</span>
+                        </li>
+                        <li><a href="{{url "App.Logout"}}"><i class="glyphicon glyphicon-remove"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /topNav -->
+            </div>
+        </div>
+        <!-- /topBar -->
+
+        <div id="profile">
+            <div class="wrapper20">
+                <div class="userInfo">
+                    <div class="userImg">
+                        {{if .fotodir}}
+                        <img src="{{.fotodir}}" rel="user">
+                        {{end}}
+                    </div>
+                    <div class="userTxt">
+                        <span class="fullname">{{.user.Nama}}</span> <i class="fa fa-chevron-right"></i><br>
+                        <span class="username">{{.user.Username}}</span>
+                    </div>
+                </div>
+                <!-- /userInfo -->
+                <div class="userStats">
+                    <div class="uStat">
+                        <div class="stat-name">
+                            Users
+                            <div class="stat-badge">+14</div>
+                        </div>
+                        <div class="stat-number">218k</div>
+                    </div>
+                    <div class="uStat">
+                        <div class="stat-name">
+                            Orders
+                            <div class="stat-badge">+27</div>
+                        </div>
+                        <div class="stat-number">1857</div>
+                    </div>
+                    <div class="uStat graph">
+                        <div id="stats_visits" class="stat-chart" values="7,18,34,29,20,18,22,31,32,18,13,23,34"></div>
+                        <div class="stat-name">
+                            Visits
+                            <div class="stat-badge">+109</div>
+                        </div>
+                        <div class="stat-number">749</div>
+
+                    </div>
+                    <div class="uStat graph">
+                        <div id="stats_balance" class="stat-chart" values="7,18,34,29,20,18,22,31,32,18,13,23,34"></div>
+                        <div class="stat-name">
+                            Balance
+                        </div>
+                        <div class="stat-number">$26.425</div>
+                    </div>
+                </div>
+
+                <i class="fa fa-bars icon-nav-mobile"></i>
+
+            </div>
+        </div>
+        <!-- /profile -->
+    </div>
+    <!-- /top -->
+
+    <div id="sidebar">
+        <ul class="mainNav">
+            <li id="dashboard" {{if .dashboard}} class="active" {{end}}>
+                <a href="{{url "Agent.Index"}}" ><i class="glyphicon glyphicon-home"></i><br>Dashboard</a>
+            </li>
+            <li id="service" {{if .service}} class="active" {{end}}>
+                <a href="{{url "Agent.ServiceAgent"}}" ><i class="glyphicon glyphicon-wrench"></i><br>Service</a>
+            </li>
+            <li id="order"  {{if .order}} class="active" {{end}}>
+                <a href="{{url "Agent.OrderAgent"}}"  ><i class="glyphicon glyphicon-list-alt"></i><br>Order</a>
+            </li>
+            <li id="chat"  {{if .chat}} class="active" {{end}}>
+                <a href="{{url "Agent.ChatAgent"}}"  ><i class="glyphicon glyphicon-comment"></i><br>Chat</a>
+                <span class="badge badge-mNav">4</span>
+            </li>
+            <li id="member"  {{if .member}} class="active" {{end}}>
+                <a href="{{url "Agent.MemberAgent"}}"  ><i class="glyphicon glyphicon-user"></i><br>Member</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- /sidebar -->
+    {{else}}
+    <div class="container-fluid"> 
+    {{end}}

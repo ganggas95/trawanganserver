@@ -1,0 +1,490 @@
+// GENERATED CODE - DO NOT EDIT
+package routes
+
+import "github.com/revel/revel"
+
+
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) SetUser(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.SetUser", args).Url
+}
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).Url
+}
+
+func (_ tApp) Login(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Login", args).Url
+}
+
+func (_ tApp) Register(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Register", args).Url
+}
+
+func (_ tApp) AddUser(
+		user interface{},
+		password string,
+		avatar []byte,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	revel.Unbind(args, "password", password)
+	revel.Unbind(args, "avatar", avatar)
+	return revel.MainRouter.Reverse("App.AddUser", args).Url
+}
+
+func (_ tApp) AddUserWithSosmed(
+		email string,
+		nama string,
+		username string,
+		password string,
+		verifyPassword string,
+		sosmedid string,
+		tipe string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "email", email)
+	revel.Unbind(args, "nama", nama)
+	revel.Unbind(args, "username", username)
+	revel.Unbind(args, "password", password)
+	revel.Unbind(args, "verifyPassword", verifyPassword)
+	revel.Unbind(args, "sosmedid", sosmedid)
+	revel.Unbind(args, "tipe", tipe)
+	return revel.MainRouter.Reverse("App.AddUserWithSosmed", args).Url
+}
+
+func (_ tApp) AuthApp(
+		username string,
+		password string,
+		remember bool,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "username", username)
+	revel.Unbind(args, "password", password)
+	revel.Unbind(args, "remember", remember)
+	return revel.MainRouter.Reverse("App.AuthApp", args).Url
+}
+
+func (_ tApp) SetUp(
+		nama string,
+		email string,
+		username string,
+		fb string,
+		gplus string,
+		twit string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "nama", nama)
+	revel.Unbind(args, "email", email)
+	revel.Unbind(args, "username", username)
+	revel.Unbind(args, "fb", fb)
+	revel.Unbind(args, "gplus", gplus)
+	revel.Unbind(args, "twit", twit)
+	return revel.MainRouter.Reverse("App.SetUp", args).Url
+}
+
+func (_ tApp) RegisterWithFacebook(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.RegisterWithFacebook", args).Url
+}
+
+func (_ tApp) AuthFb(
+		code string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "code", code)
+	return revel.MainRouter.Reverse("App.AuthFb", args).Url
+}
+
+func (_ tApp) RegisterWithGPlus(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.RegisterWithGPlus", args).Url
+}
+
+func (_ tApp) GplusAuth(
+		code string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "code", code)
+	return revel.MainRouter.Reverse("App.GplusAuth", args).Url
+}
+
+func (_ tApp) VerifyAcoount(
+		code string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "code", code)
+	return revel.MainRouter.Reverse("App.VerifyAcoount", args).Url
+}
+
+func (_ tApp) RegisterWithTwit(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.RegisterWithTwit", args).Url
+}
+
+func (_ tApp) AuthTwit(
+		oauth_toke string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "oauth_toke", oauth_toke)
+	return revel.MainRouter.Reverse("App.AuthTwit", args).Url
+}
+
+func (_ tApp) Logout(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Logout", args).Url
+}
+
+func (_ tApp) UploadFoto(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.UploadFoto", args).Url
+}
+
+func (_ tApp) Upload(
+		avatar []byte,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "avatar", avatar)
+	return revel.MainRouter.Reverse("App.Upload", args).Url
+}
+
+
+type tStatic struct {}
+var Static tStatic
+
+
+func (_ tStatic) Serve(
+		prefix string,
+		filepath string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.Serve", args).Url
+}
+
+func (_ tStatic) ServeModule(
+		moduleName string,
+		prefix string,
+		filepath string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "moduleName", moduleName)
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.ServeModule", args).Url
+}
+
+
+type tTestRunner struct {}
+var TestRunner tTestRunner
+
+
+func (_ tTestRunner) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("TestRunner.Index", args).Url
+}
+
+func (_ tTestRunner) Suite(
+		suite string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "suite", suite)
+	return revel.MainRouter.Reverse("TestRunner.Suite", args).Url
+}
+
+func (_ tTestRunner) Run(
+		suite string,
+		test string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "suite", suite)
+	revel.Unbind(args, "test", test)
+	return revel.MainRouter.Reverse("TestRunner.Run", args).Url
+}
+
+func (_ tTestRunner) List(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("TestRunner.List", args).Url
+}
+
+
+type tGuestUser struct {}
+var GuestUser tGuestUser
+
+
+func (_ tGuestUser) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("GuestUser.Index", args).Url
+}
+
+
+type tPersons struct {}
+var Persons tPersons
+
+
+func (_ tPersons) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Index", args).Url
+}
+
+func (_ tPersons) List(
+		search string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "search", search)
+	return revel.MainRouter.Reverse("Persons.List", args).Url
+}
+
+func (_ tPersons) Show(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Show", args).Url
+}
+
+func (_ tPersons) UnverifyAcc(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.UnverifyAcc", args).Url
+}
+
+func (_ tPersons) Tambah(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Tambah", args).Url
+}
+
+func (_ tPersons) AddData(
+		person interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "person", person)
+	return revel.MainRouter.Reverse("Persons.AddData", args).Url
+}
+
+func (_ tPersons) Delete(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Delete", args).Url
+}
+
+func (_ tPersons) Ubah(
+		nama string,
+		alamat string,
+		tempatlahir string,
+		pekerjaan string,
+		tanggallahir interface{},
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "nama", nama)
+	revel.Unbind(args, "alamat", alamat)
+	revel.Unbind(args, "tempatlahir", tempatlahir)
+	revel.Unbind(args, "pekerjaan", pekerjaan)
+	revel.Unbind(args, "tanggallahir", tanggallahir)
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Ubah", args).Url
+}
+
+func (_ tPersons) GetData(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.GetData", args).Url
+}
+
+func (_ tPersons) Logout(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Logout", args).Url
+}
+
+
+type tAgent struct {}
+var Agent tAgent
+
+
+func (_ tAgent) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.Index", args).Url
+}
+
+func (_ tAgent) ServiceAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.ServiceAgent", args).Url
+}
+
+func (_ tAgent) OrderAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.OrderAgent", args).Url
+}
+
+func (_ tAgent) ChatAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.ChatAgent", args).Url
+}
+
+func (_ tAgent) MemberAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.MemberAgent", args).Url
+}
+
+func (_ tAgent) RegisterAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.RegisterAgent", args).Url
+}
+
+func (_ tAgent) AddAgentFromUser(
+		travelAgent interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "travelAgent", travelAgent)
+	return revel.MainRouter.Reverse("Agent.AddAgentFromUser", args).Url
+}
+
+func (_ tAgent) SetService(
+		agentService interface{},
+		foto []byte,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "agentService", agentService)
+	revel.Unbind(args, "foto", foto)
+	return revel.MainRouter.Reverse("Agent.SetService", args).Url
+}
+
+func (_ tAgent) DeleteService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.DeleteService", args).Url
+}
+
+func (_ tAgent) ActiveService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.ActiveService", args).Url
+}
+
+func (_ tAgent) DisableService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.DisableService", args).Url
+}
+
+func (_ tAgent) Logout(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.Logout", args).Url
+}
+
+
+type tApi struct {}
+var Api tApi
+
+
+func (_ tApi) Auth(
+		username string,
+		password string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "username", username)
+	revel.Unbind(args, "password", password)
+	return revel.MainRouter.Reverse("Api.Auth", args).Url
+}
+
+func (_ tApi) AddUser(
+		user interface{},
+		password string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	revel.Unbind(args, "password", password)
+	return revel.MainRouter.Reverse("Api.AddUser", args).Url
+}
+
+

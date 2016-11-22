@@ -1,0 +1,50 @@
+{{set . "title" "Data Masyarakat"}}
+{{template "header.html" .}}
+
+    <div class="container" >
+        {{if .persons}}
+        <div class="main" >
+
+            <div class="h1" align="center">Data {{.Nama}}</div>
+                <!-- Main Form -->
+            <hr/>
+            <div class="detail">
+            <table>
+                <tr>
+                    <td width="100">Nama</td><td width="10"></td><td align="right">{{.persons.Nama}}</td>
+
+                </tr>
+                <tr >
+                    <td>Alamat</td><td width="10"><td align="right">{{.persons.Alamat}}</td>
+                </tr>
+                <tr >
+                    <td>Tempat Lahir</td><td width="10"><td align="right">{{.persons.TempatLahir}}</td>
+                </tr>
+                <tr >
+                    <td>Tanggal Lahir</td><td width="10"><td align="right">{{.persons.TanggalLahir}}</td>
+                </tr>
+                <tr >
+                    <td>Pekerjaan</td><td width="10"><td align="right">{{.persons.Pekerjaan}}</td>
+                </tr>
+            </table>
+
+            </div>
+            {{end}}
+            <hr>
+            <br>
+            <div align="right">
+                <a href="{{url "Persons.List"}}" style="text-decoration: none;color:#fff">
+                    <button class="btn btn-sm btn-primary">Back</button>
+                </a>
+            </div>
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

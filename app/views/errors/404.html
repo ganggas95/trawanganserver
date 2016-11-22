@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="/public/img/logo.png">
+    
+    <script src="/public/js/jquery-2.2.4.min.js"></script>
+    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+</head>
+<body class="bg-404">
+
+<div class="img" >
+	<center><a href="{{url "App.Index"}}"><img src="/public/img/i.png" /></center></a>
+</div>
+ <div class="main-view" align="center">
+ 		<img src="/public/img/we.png" />
+ </div>
+<div class="container-fluid message">
+<center>
+ <h1><strong>oopss...!</strong> look like you got lose</h1>
+Get back home by clicking the air ballon
+</center>
+</div>
+<script>
+    $("body").on("contextmenu", "img", function(e) {
+        return false;
+    });
+    $('img').on('dragstart', function(event) { event.preventDefault(); });
+</script>
+</body>
+</html>
+

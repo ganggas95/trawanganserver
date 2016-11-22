@@ -1,0 +1,52 @@
+{{set . "title" "Tambah Data"}}
+{{template "header.html" .}}
+
+
+<div class="container">
+    <div class="main">
+        <form action="{{url "Persons.AddData"}}" method="Post">
+            {{with $field := field "person.Nama" .}}
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input class="form-control" type="text" name="{{$field.Name}}" id="nama" placeholder="Nama" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "person.Alamat" .}}
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <textarea class="form-control" name="{{$field.Name}}" id="alamat" >{{$field.Flash}}</textarea>
+                <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "person.TempatLahir" .}}
+            <div class="form-group">
+                <label for="tempatlahir">Tempat Lahir</label>
+                <input class="form-control" type="text" name="{{$field.Name}}" id="tempatlahir" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "person.TanggalLahir" .}}
+            <div class="form-group">
+                <label for="tanggallahir">Tanggal Lahir</label>
+                <input class="form-control datepicker" type="date" name="{{$field.Name}}" id="tanggallahir" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "person.Pekerjaan" .}}
+            <div class="form-group">
+                <label for="pekerjaan">Pekerjaan</label>
+                <input class="form-control" type="text" name="{{$field.Name}}" id="pekerjaan" value="{{$field.Flash}}" >
+                <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+
+            <input type="submit" value="Simpan" class="btn btn-default">
+            <a href="{{url "Persons.List"}}" style="text-decoration: none;color:#fff">
+                <button type="button" value="Batal" class="btn btn-danger">Batal</button>
+            </a>
+        </form>
+    </div>
+</div>
+
+{{template "footer.html" .}}

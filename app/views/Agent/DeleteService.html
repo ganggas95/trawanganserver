@@ -1,0 +1,21 @@
+<div class="modal fade" id="modalDeleteService" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<form method="post" action="{{url "Agent.DeleteService"}}">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Delete Service</h4>
+			</div>
+			<div class="modal-body">
+				<strong>You sure to delete this service??</strong>
+				<input type="hidden" name="idService" id="idService">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-grey" data-dismiss="modal">No</button>
+					<input class="btn btn-primary btn-sm" type="submit" value="Yes" >
+				
+			</div>
+		</form>
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->		
+</div>

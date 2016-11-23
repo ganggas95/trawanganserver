@@ -49,19 +49,6 @@ type UserSosmed struct {
 }
 */
 
-type UserGroup struct {
-	Id     int64  `db:"idUserGrp,primarykey, autoincrement"`
-	Group  string `db:"group"`
-	IdUser int64  `db:"idUser"`
-}
-
-type Privilage struct {
-	Id        int64  `db:"idPrivilage, primarykey, autoincrement"`
-	Privilage string `db:"privilage"`
-	Read      bool   `db:"read"`
-	Write     bool   `db:"write"`
-}
-
 var emailregex = regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 
 //var userregex = regexp.MustCompile(`^\\w*$`)

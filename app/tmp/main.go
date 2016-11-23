@@ -273,6 +273,106 @@ func main() {
 			
 		})
 	
+	revel.RegisterController((*controllers.Persons)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Index",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					29: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "List",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "search", Type: reflect.TypeOf((*string)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+					57: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "Show",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+					70: []string{ 
+						"persons",
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "UnverifyAcc",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					82: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "Tambah",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					94: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "AddData",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "person", Type: reflect.TypeOf((**models.Person)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Delete",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Ubah",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "nama", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "alamat", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "tempatlahir", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "pekerjaan", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "tanggallahir", Type: reflect.TypeOf((*time.Time)(nil)) },
+					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "GetData",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+					174: []string{ 
+						"person",
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "Logout",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
 	revel.RegisterController((*controllers.Agent)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
@@ -433,106 +533,6 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers.Persons)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Index",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					29: []string{ 
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "List",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "search", Type: reflect.TypeOf((*string)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-					57: []string{ 
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "Show",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-					70: []string{ 
-						"persons",
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "UnverifyAcc",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					82: []string{ 
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "Tambah",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					94: []string{ 
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "AddData",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "person", Type: reflect.TypeOf((**models.Person)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Delete",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Ubah",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "nama", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "alamat", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "tempatlahir", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "pekerjaan", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "tanggallahir", Type: reflect.TypeOf((*time.Time)(nil)) },
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "GetData",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-					174: []string{ 
-						"person",
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "Logout",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			
-		})
-	
 	revel.DefaultValidationKeys = map[string]map[int]string{ 
 		"github.com/ganggas95/trawanganserver/app/controllers.Agent.SetService": { 
 			253: "foto",
@@ -572,9 +572,9 @@ func main() {
 			36: "person.TempatLahir",
 		},
 		"github.com/ganggas95/trawanganserver/app/models.(*User).Validation": { 
-			73: "user.Nama",
-			80: "user.Username",
-			85: "user.Email",
+			60: "user.Nama",
+			67: "user.Username",
+			72: "user.Email",
 		},
 		"github.com/ganggas95/trawanganserver/app/models.AgentTravel.Validation": { 
 			58: "at.NamaAgent",

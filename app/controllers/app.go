@@ -198,7 +198,7 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 	return c.Redirect(routes.App.Login())
 }
 
-func (c App) SetUp(user *models.User) revel.Result {
+func (c App) SetUp(user models.User) revel.Result {
 	usr := c.connected()
 	if usr != nil {
 		return c.Redirect(routes.Persons.List(""))
@@ -206,9 +206,10 @@ func (c App) SetUp(user *models.User) revel.Result {
 	if user != nil {
 		c.RenderArgs["user"] = user
 		return c.Render(user)
+	} else {
+		c.Flash.Error("You don't have any prosess")
+		return c.Redirect(routes.App.Index())
 	}
-	c.Flash.Error("You don't have any prosess")
-	return c.Redirect(routes.App.Index())
 
 }
 
@@ -257,7 +258,7 @@ func (c App) AuthFb(code string) revel.Result {
 	user.Email = email
 	user.Username = username
 	user.FbId = id
-	return c.Redirect(routes.App.SetUp(user))
+	return c.Redirect(routes.App.SetUp(&user))
 
 }
 
@@ -312,7 +313,7 @@ func (c App) GplusAuth(code string) revel.Result {
 	user.GplusId = id
 	if len(people.Emails) > 0 {
 		user.Email = people.Emails[0].Value
-		return c.Redirect(routes.App.SetUp(user))
+		return c.Redirect(routes.App.SetUp(&user))
 	}
 	return c.Redirect(routes.App.Login())
 }

@@ -1,12 +1,14 @@
 package app
 
 import (
+	"fmt"
+	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/jinzhu/gorm"
-	_ "github.com/lib/pq"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/revel/revel"
 )
 
-var GORM gorm.DB
+var GORM *gorm.DB
 
 const (
 	DB_HOST = "ec2-107-22-251-225.compute-1.amazonaws.com"
@@ -15,11 +17,6 @@ const (
 	DB_NAME = "daalefbcj1ekfm"
 )
 
-func CheckError(err error) {
-	if err != nil {
-		log.Println(err)
-	}
-}
 func init() {
 	// Filters is the default set of global filters.
 	revel.Filters = []revel.Filter{
@@ -45,9 +42,9 @@ func init() {
 func InitDB() {
 	var err error
 	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", DB_HOST, DB_USER, DB_PASS, DB_NAME)
-	GORM, err = gorm.Open("postgres", dbinfo)
+	GORM, err = gorm.Open(revel.Config.StringDefault("db.driver", "postgres"), revel.Config.StringDefault("db.spec", dbinfo))
 	if err != nil {
-		CheckError(err)
+		revel.INFO.Println("Db Error ", err)
 	}
 	createTable(GORM)
 	GORM.LogMode(true)

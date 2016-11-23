@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"bytes"
+	"github.com/ganggas95/trawanganserver/app"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/ganggas95/trawanganserver/app/routes"
 	"github.com/revel/revel"
@@ -15,7 +16,6 @@ import (
 
 type Agent struct {
 	App
-	Database
 }
 
 func (a Agent) CheckAgent() *models.AgentTravel {
@@ -80,7 +80,7 @@ func (a Agent) ServiceAgent() revel.Result {
 				return a.Redirect(routes.Agent.ServiceAgent())
 			}
 			var fotoUser models.UserFoto
-			db = a.initDb().Where("user_id = ?", user.UID).Find(&fotoUser)
+			db = app.GORM.Where("user_id = ?", user.UID).Find(&fotoUser)
 			if db.RecordNotFound() {
 
 			}
@@ -232,7 +232,7 @@ func (a Agent) AddAgentFromUser(travelAgent models.AgentTravel) revel.Result {
 	}
 
 	travelAgent.UserId = users.UID
-	err := a.initDb().Create(&travelAgent)
+	err := app.GORM.Create(&travelAgent)
 	if err.Error != nil {
 		panic(err.Error)
 	}

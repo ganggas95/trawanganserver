@@ -12,6 +12,7 @@ import (
 	"io"
 	//"log"
 	"github.com/ganggas95/trawanganserver/app"
+	"github.com/ganggas95/trawanganserver/app/job"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/ganggas95/trawanganserver/app/routes"
 	"os"
@@ -21,7 +22,6 @@ import (
 
 type App struct {
 	*revel.Controller
-	Database
 	job.GoogleHandler
 	job.FbHandler
 	job.GplusHandler
@@ -82,13 +82,17 @@ func (c App) Register() revel.Result {
 func (c App) GetUser(username string) *models.User {
 	var user models.User
 	err := app.GORM.Where("username = ? OR email = ?", username, username).Find(&user)
-	CheckError(err.Error)
+	if err != nil {
+		panic(err.Error)
+	}
 	return &user
 }
 func (c App) GetUserWitId(idUser int64) *models.User {
 	var users models.User
 	err := app.GORM.First(&users, idUser)
-	CheckError(err.Error)
+	if err != nil {
+		panic(err.Error)
+	}
 	return &users
 }
 
@@ -107,13 +111,17 @@ func (c App) AddUser(user models.User, password string, avatar []byte) revel.Res
 	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	tok := job.RandomToken(32)
 	err3 := job.SendToken(user.Email, tok)
-	CheckError(err3)
+	if err3 != nil {
+		panic(err3)
+	}
 	var token models.UserToken
 	token.AccessToken = tok
 	token.User = user
 	err := app.GORM.Create(&token)
-	err = app.GORM.initDb().Create(&user)
-	CheckError(err.Error)
+	err = app.GORM.Create(&user)
+	if err != nil {
+		panic(err.Error)
+	}
 	c.Flash.Success("We have send to your emails")
 	return c.Redirect(routes.App.Login())
 }

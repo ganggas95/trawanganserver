@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/ganggas95/trawanganserver/app"
 	"github.com/ganggas95/trawanganserver/app/job"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/revel/revel"
@@ -50,13 +51,17 @@ func (c Api) AddUser(user models.User, password string) revel.Result {
 	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	tok := job.RandomToken(32)
 	err3 := job.SendToken(user.Email, tok)
-	CheckError(err3)
+	if err3 != nil {
+		panic(err3)
+	}
 	var token models.UserToken
 	token.AccessToken = tok
 	token.User = user
 	err := app.GORM.Create(&token)
 	err = app.GORM.Create(&user)
-	CheckError(err.Error)
+	if err != nil {
+		panic(err.Error)
+	}
 	return c.RenderJson(user)
 }
 

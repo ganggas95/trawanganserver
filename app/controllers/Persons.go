@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"fmt"
+
+	"github.com/ganggas95/trawanganserver/app"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/ganggas95/trawanganserver/app/routes"
 	"github.com/revel/revel"
@@ -11,7 +13,6 @@ import (
 
 type Persons struct {
 	App
-	Database
 }
 
 func (c Persons) checkUser() revel.Result {
@@ -153,9 +154,9 @@ func (c Persons) Ubah(nama, alamat, tempatlahir, pekerjaan string, tanggallahir 
 	person.TempatLahir = tempatlahir
 	person.TanggalLahir = tanggallahir
 	person.Pekerjaan = pekerjaan
-	err := app.GORM.initDb().Save(&person)
+	err := app.GORM.Save(&person)
 	if err.Error != nil {
-		CheckError(err.Error)
+		panic(err.Error)
 	}
 	return c.Redirect(routes.Persons.List(""))
 }

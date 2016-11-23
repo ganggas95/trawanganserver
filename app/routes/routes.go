@@ -251,6 +251,107 @@ func (_ tStatic) ServeModule(
 }
 
 
+type tAgent struct {}
+var Agent tAgent
+
+
+func (_ tAgent) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.Index", args).Url
+}
+
+func (_ tAgent) ServiceAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.ServiceAgent", args).Url
+}
+
+func (_ tAgent) OrderAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.OrderAgent", args).Url
+}
+
+func (_ tAgent) ChatAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.ChatAgent", args).Url
+}
+
+func (_ tAgent) MemberAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.MemberAgent", args).Url
+}
+
+func (_ tAgent) RegisterAgent(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.RegisterAgent", args).Url
+}
+
+func (_ tAgent) AddAgentFromUser(
+		travelAgent interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "travelAgent", travelAgent)
+	return revel.MainRouter.Reverse("Agent.AddAgentFromUser", args).Url
+}
+
+func (_ tAgent) SetService(
+		agentService interface{},
+		foto []byte,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "agentService", agentService)
+	revel.Unbind(args, "foto", foto)
+	return revel.MainRouter.Reverse("Agent.SetService", args).Url
+}
+
+func (_ tAgent) DeleteService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.DeleteService", args).Url
+}
+
+func (_ tAgent) ActiveService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.ActiveService", args).Url
+}
+
+func (_ tAgent) DisableService(
+		idService int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "idService", idService)
+	return revel.MainRouter.Reverse("Agent.DisableService", args).Url
+}
+
+func (_ tAgent) Logout(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Agent.Logout", args).Url
+}
+
+
 type tApi struct {}
 var Api tApi
 
@@ -372,107 +473,6 @@ func (_ tPersons) Logout(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("Persons.Logout", args).Url
-}
-
-
-type tAgent struct {}
-var Agent tAgent
-
-
-func (_ tAgent) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.Index", args).Url
-}
-
-func (_ tAgent) ServiceAgent(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.ServiceAgent", args).Url
-}
-
-func (_ tAgent) OrderAgent(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.OrderAgent", args).Url
-}
-
-func (_ tAgent) ChatAgent(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.ChatAgent", args).Url
-}
-
-func (_ tAgent) MemberAgent(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.MemberAgent", args).Url
-}
-
-func (_ tAgent) RegisterAgent(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.RegisterAgent", args).Url
-}
-
-func (_ tAgent) AddAgentFromUser(
-		travelAgent interface{},
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "travelAgent", travelAgent)
-	return revel.MainRouter.Reverse("Agent.AddAgentFromUser", args).Url
-}
-
-func (_ tAgent) SetService(
-		agentService interface{},
-		foto []byte,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "agentService", agentService)
-	revel.Unbind(args, "foto", foto)
-	return revel.MainRouter.Reverse("Agent.SetService", args).Url
-}
-
-func (_ tAgent) DeleteService(
-		idService int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "idService", idService)
-	return revel.MainRouter.Reverse("Agent.DeleteService", args).Url
-}
-
-func (_ tAgent) ActiveService(
-		idService int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "idService", idService)
-	return revel.MainRouter.Reverse("Agent.ActiveService", args).Url
-}
-
-func (_ tAgent) DisableService(
-		idService int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "idService", idService)
-	return revel.MainRouter.Reverse("Agent.DisableService", args).Url
-}
-
-func (_ tAgent) Logout(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Agent.Logout", args).Url
 }
 
 

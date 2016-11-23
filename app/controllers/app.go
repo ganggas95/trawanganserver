@@ -96,7 +96,7 @@ func (c App) GetUserWitId(idUser int64) *models.User {
 	return &users
 }
 
-func (c App) AddUser(user models.User, password string, avatar []byte) revel.Result {
+func (c App) AddUser(user models.User, password string) revel.Result {
 	var usr models.User
 	db := app.GORM.Where("email = ? OR username = ?", user.Email, user.Username).Find(&usr)
 	if !db.RecordNotFound() {

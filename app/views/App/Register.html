@@ -27,9 +27,6 @@
                 <div class="form-group {{$field.ErrorClass}}">
                     <input type="password" class="form-control" name="{{$field.Name}}" value="" placeholder="Password">          <span class="error">{{$field.Error}}</span>       
                 </div>
-                <div class="form-group {{$field.ErrorClass}}">
-                <input type="file" name="avatar" id="avatar" class="span6">
-                 </div>
                 {{end}}
                 {{if .flash}}
                     {{template "flash.html" .}}

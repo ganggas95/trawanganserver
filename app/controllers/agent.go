@@ -201,7 +201,11 @@ func (a Agent) MemberAgent() revel.Result {
 }
 
 func (a Agent) RegisterAgent() revel.Result {
-	return a.Render()
+	user := a.connected()
+	if user == nil {
+		return a.Redirect(routes.App.Index())
+	}
+	return a.Render(user)
 }
 
 func (a Agent) UniqueHandler(email, website string) bool {

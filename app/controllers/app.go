@@ -209,12 +209,15 @@ func (c App) SetUp(nama, email, username, fb, gplus, twit string) revel.Result {
 	users.Email = email
 	if fb != "" {
 		users.FbId = fb
+		c.RenderArgs["users"] = users
 		return c.Render(users)
 	} else if gplus != "" {
 		users.GplusId = gplus
+		c.RenderArgs["users"] = users
 		return c.Render(users)
 	} else if twit != "" {
 		users.TwitId = twit
+		c.RenderArgs["users"] = users
 		return c.Render(users)
 	} else {
 		c.Flash.Error("You don't have any prosess")
@@ -263,6 +266,7 @@ func (c App) AuthFb(code string) revel.Result {
 	}
 	username := strings.Split(email, "@")[0]
 	nama := res1["name"].(string)
+
 	return c.Redirect(routes.App.SetUp(nama, email, username, id, "", ""))
 
 }
@@ -315,7 +319,6 @@ func (c App) GplusAuth(code string) revel.Result {
 	for a := 0; a < len(people.Emails); a++ {
 		return c.Redirect(routes.App.SetUp(nama, people.Emails[0].Value, username, "", id, ""))
 	}
-
 	return c.Redirect(routes.App.Login())
 }
 

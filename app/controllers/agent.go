@@ -24,7 +24,7 @@ func (a Agent) CheckAgent() *models.AgentTravel {
 		return nil
 	}
 	var agent models.AgentTravel
-	err := a.initDb().Where("user_id = ?", user.UID).Find(&agent)
+	err := app.GORM.Where("user_id = ?", user.UID).Find(&agent)
 	if err.RecordNotFound() {
 		return nil
 	}
@@ -42,7 +42,7 @@ func (a Agent) Index() revel.Result {
 			return a.Redirect(routes.Persons.UnverifyAcc())
 		} else {
 			var foto models.UserFoto
-			db := a.initDb().Where("user_id = ?", user.UID).Find(&foto)
+			db := app.GORM.Where("user_id = ?", user.UID).Find(&foto)
 			if db.RecordNotFound() {
 
 			}
@@ -73,7 +73,7 @@ func (a Agent) ServiceAgent() revel.Result {
 			return a.Redirect(routes.Persons.UnverifyAcc())
 		} else {
 			var services []models.AgentService
-			db := a.initDb().Where("agent_id = ?", agent.IdAgent).Find(&services)
+			db := app.GORM.Where("agent_id = ?", agent.IdAgent).Find(&services)
 			if db.RecordNotFound() {
 				a.FlashParams()
 				a.Flash.Error("No Service")
@@ -89,7 +89,7 @@ func (a Agent) ServiceAgent() revel.Result {
 			service := "service"
 			for i := 0; i < len(services); i++ {
 				var foto models.FotoService
-				db1 := a.initDb().Find(&foto, models.FotoService{IdService: services[i].IdService})
+				db1 := app.GORM.Find(&foto, models.FotoService{IdService: services[i].IdService})
 				if db1.RecordNotFound() {
 
 				}
@@ -121,7 +121,7 @@ func (a Agent) OrderAgent() revel.Result {
 			return a.Redirect(routes.Persons.UnverifyAcc())
 		} else {
 			var foto models.UserFoto
-			db := a.initDb().Where("user_id = ?", user.UID).Find(&foto)
+			db := app.GORM.Where("user_id = ?", user.UID).Find(&foto)
 			if db.RecordNotFound() {
 
 			}
@@ -151,7 +151,7 @@ func (a Agent) ChatAgent() revel.Result {
 			return a.Redirect(routes.Persons.UnverifyAcc())
 		} else {
 			var foto models.UserFoto
-			db := a.initDb().Where("user_id = ?", user.UID).Find(&foto)
+			db := app.GORM.Where("user_id = ?", user.UID).Find(&foto)
 			if db.RecordNotFound() {
 
 			}
@@ -180,7 +180,7 @@ func (a Agent) MemberAgent() revel.Result {
 			return a.Redirect(routes.Persons.UnverifyAcc())
 		} else {
 			var foto models.UserFoto
-			db := a.initDb().Where("user_id = ?", user.UID).Find(&foto)
+			db := app.GORM.Where("user_id = ?", user.UID).Find(&foto)
 			if db.RecordNotFound() {
 
 			}
@@ -206,7 +206,7 @@ func (a Agent) RegisterAgent() revel.Result {
 
 func (a Agent) UniqueHandler(email, website string) bool {
 	var travelAgent models.AgentTravel
-	db := a.initDb().Debug().Where("website_agent = ? OR email_agent = ?", website, email).Find(&travelAgent)
+	db := app.GORM.Debug().Where("website_agent = ? OR email_agent = ?", website, email).Find(&travelAgent)
 	if db.RecordNotFound() {
 		return false
 	} else {
@@ -241,7 +241,7 @@ func (a Agent) AddAgentFromUser(travelAgent models.AgentTravel) revel.Result {
 
 func (a Agent) GetAgent(userId int64) *models.AgentTravel {
 	var agent models.AgentTravel
-	err := a.initDb().Where("user_id = ?", userId).Find(&agent)
+	err := app.GORM.Where("user_id = ?", userId).Find(&agent)
 	if err.Error != nil {
 		panic(err.Error)
 	}
@@ -324,7 +324,7 @@ func (a Agent) SetService(agentService models.AgentService, foto []byte) revel.R
 			agentService.IdAgent = agent.IdAgent
 			agentService.Kategori = agentService.Kategori
 			agentService.Foto = img
-			db := a.initDb().Create(&agentService)
+			db := app.GORM.Create(&agentService)
 
 			if db.Error != nil {
 				panic(db.Error)
@@ -346,9 +346,9 @@ func (a Agent) DeleteService(idService int64) revel.Result {
 	}
 	serviceAgent := models.AgentService{IdService: idService}
 	var serviceFoto models.FotoService
-	db := a.initDb().Where("service_id = ?", idService).Find(&serviceFoto)
-	db = a.initDb().Debug().Delete(&serviceFoto)
-	db = a.initDb().Debug().Delete(&serviceAgent)
+	db := app.GORM.Where("service_id = ?", idService).Find(&serviceFoto)
+	db = app.GORM.Debug().Delete(&serviceFoto)
+	db = app.GORM.Debug().Delete(&serviceAgent)
 	if db.Error != nil {
 		panic(db.Error)
 	}
@@ -362,12 +362,12 @@ func (a Agent) ActiveService(idService int64) revel.Result {
 		return a.Redirect(routes.Agent.ServiceAgent())
 	}
 	var serviceAgent models.AgentService
-	db := a.initDb().First(&serviceAgent, idService)
+	db := app.GORM.First(&serviceAgent, idService)
 	if db.RecordNotFound() {
 		panic(db.RecordNotFound())
 	}
 	serviceAgent.Status = true
-	db = a.initDb().Save(&serviceAgent)
+	db = app.GORM.Save(&serviceAgent)
 	if db.Error != nil {
 		a.Flash.Error("Service failed to active")
 		return a.Redirect(routes.Agent.ServiceAgent())
@@ -381,12 +381,12 @@ func (a Agent) DisableService(idService int64) revel.Result {
 		return a.Redirect(routes.Agent.ServiceAgent())
 	}
 	var serviceAgent models.AgentService
-	db := a.initDb().First(&serviceAgent, idService)
+	db := app.GORM.First(&serviceAgent, idService)
 	if db.RecordNotFound() {
 		panic(db.RecordNotFound())
 	}
 	serviceAgent.Status = false
-	db = a.initDb().Save(&serviceAgent)
+	db = app.GORM.Save(&serviceAgent)
 	if db.Error != nil {
 		a.Flash.Error("Service failed to active")
 		return a.Redirect(routes.Agent.ServiceAgent())

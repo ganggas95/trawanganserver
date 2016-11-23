@@ -54,15 +54,15 @@ func (c Api) AddUser(user models.User, password string) revel.Result {
 	var token models.UserToken
 	token.AccessToken = tok
 	token.User = user
-	err := c.Database.initDb().Create(&token)
-	err = c.Database.initDb().Create(&user)
+	err := app.GORM.Create(&token)
+	err = app.GORM.Create(&user)
 	CheckError(err.Error)
 	return c.RenderJson(user)
 }
 
 func (api Api) DetectAgent(userId int64) models.AgentTravel {
 	var agent models.AgentTravel
-	db := api.initDb().Where("user_id = ?", userId).Find(&agent)
+	db := app.GORM.Where("user_id = ?", userId).Find(&agent)
 	if db.RecordNotFound() {
 
 	}

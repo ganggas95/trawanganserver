@@ -45,7 +45,7 @@ func (c Persons) List(search string) revel.Result {
 		sr = strings.ToLower(search)
 	}
 	var person []models.Person
-	db := c.initDb().Debug().Where("nama LIKE ?", "%"+sr+"%").Find(&person)
+	db := app.GORM.Debug().Where("nama LIKE ?", "%"+sr+"%").Find(&person)
 	if db.RecordNotFound() {
 		c.Redirect(routes.Persons.Index())
 	}
@@ -115,7 +115,7 @@ func (c Persons) AddData(person *models.Person) revel.Result {
 		return c.Redirect(routes.Persons.UnverifyAcc())
 	}
 
-	c.initDb().Create(&person)
+	app.GORM.Create(&person)
 	return c.Redirect(routes.Persons.List(""))
 }
 
@@ -130,7 +130,7 @@ func (c Persons) Delete(id int64) revel.Result {
 		return c.Redirect(routes.Persons.UnverifyAcc())
 	}
 	person := models.Person{IdPerson: id}
-	err := c.initDb().Delete(&person)
+	err := app.GORM.Delete(&person)
 	if err.Error != nil {
 		panic(err.Error)
 	}
@@ -153,7 +153,7 @@ func (c Persons) Ubah(nama, alamat, tempatlahir, pekerjaan string, tanggallahir 
 	person.TempatLahir = tempatlahir
 	person.TanggalLahir = tanggallahir
 	person.Pekerjaan = pekerjaan
-	err := c.Database.initDb().Save(&person)
+	err := app.GORM.initDb().Save(&person)
 	if err.Error != nil {
 		CheckError(err.Error)
 	}
@@ -176,7 +176,7 @@ func (c Persons) GetData(id int64) revel.Result {
 
 func (c Persons) getPerson(id int64) *models.Person {
 	var persons models.Person
-	person := c.Database.initDb().First(&persons, id)
+	person := app.GORM.First(&persons, id)
 	if person.Error != nil {
 		panic(person.Error)
 	}

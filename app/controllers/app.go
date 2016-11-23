@@ -11,7 +11,7 @@ import (
 	_ "image/png"
 	"io"
 	//"log"
-	"github.com/ganggas95/trawanganserver/app/job"
+	"github.com/ganggas95/trawanganserver/app"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/ganggas95/trawanganserver/app/routes"
 	"os"
@@ -81,20 +81,20 @@ func (c App) Register() revel.Result {
 
 func (c App) GetUser(username string) *models.User {
 	var user models.User
-	err := c.Database.initDb().Where("username = ? OR email = ?", username, username).Find(&user)
+	err := app.GORM.Where("username = ? OR email = ?", username, username).Find(&user)
 	CheckError(err.Error)
 	return &user
 }
 func (c App) GetUserWitId(idUser int64) *models.User {
 	var users models.User
-	err := c.initDb().First(&users, idUser)
+	err := app.GORM.First(&users, idUser)
 	CheckError(err.Error)
 	return &users
 }
 
 func (c App) AddUser(user models.User, password string, avatar []byte) revel.Result {
 	var usr models.User
-	db := c.initDb().Where("email = ? OR username = ?", user.Email, user.Username).Find(&usr)
+	db := app.GORM.Where("email = ? OR username = ?", user.Email, user.Username).Find(&usr)
 	if !db.RecordNotFound() {
 		c.Validation.Keep()
 		c.FlashParams()
@@ -111,8 +111,8 @@ func (c App) AddUser(user models.User, password string, avatar []byte) revel.Res
 	var token models.UserToken
 	token.AccessToken = tok
 	token.User = user
-	err := c.Database.initDb().Create(&token)
-	err = c.Database.initDb().Create(&user)
+	err := app.GORM.Create(&token)
+	err = app.GORM.initDb().Create(&user)
 	CheckError(err.Error)
 	c.Flash.Success("We have send to your emails")
 	return c.Redirect(routes.App.Login())
@@ -151,11 +151,11 @@ func (c App) AddUserWithSosmed(email, nama, username, password, verifyPassword, 
 	token.AccessToken = tok
 	token.Expiry = job.TokenExpiry()
 	token.User = user
-	err := c.initDb().Create(&token)
+	err := app.GORM.Create(&token)
 	if err.Error != nil {
 		panic(err.Error)
 	}
-	err = c.initDb().Create(&user)
+	err = app.GORM.Create(&user)
 	if err.Error != nil {
 		panic(err.Error)
 	}
@@ -229,7 +229,7 @@ func (c App) AuthFb(code string) revel.Result {
 	id, _ := user.GetString("id")
 
 	var userfb models.User
-	err := c.initDb().Where("fbid = ?", id).Find(&userfb)
+	err := app.GORM.Where("fbid = ?", id).Find(&userfb)
 	if !err.RecordNotFound() {
 		c.Session["user"] = userfb.Username
 		c.RenderArgs["user"] = userfb.Username
@@ -289,7 +289,7 @@ func (c App) GplusAuth(code string) revel.Result {
 	nama := people.Name.FamilyName
 	id := people.Id
 	var user models.User
-	err := c.Database.initDb().Where("gplusid = ?", id).Find(&user)
+	err := app.GORM.Where("gplusid = ?", id).Find(&user)
 	if !err.RecordNotFound() {
 		c.Session["user"] = user.Username
 		c.RenderArgs["user"] = user.Username
@@ -312,12 +312,12 @@ func (c App) GplusAuth(code string) revel.Result {
 
 func (c App) VerifyAcoount(code string) revel.Result {
 	var token models.UserToken
-	err := c.Database.initDb().Where(models.UserToken{AccessToken: code}).Find(&token)
+	err := app.GORM.Where(models.UserToken{AccessToken: code}).Find(&token)
 	if err.Error != nil {
 		panic(err.Error)
 	}
 	var user models.User
-	err = c.Database.initDb().Find(&user, &token.User)
+	err = app.GORM.Find(&user, &token.User)
 	if err.Error != nil {
 		panic(err.Error)
 	}
@@ -325,8 +325,8 @@ func (c App) VerifyAcoount(code string) revel.Result {
 		token.Status = true
 		token.User = user
 		user.Verify = true
-		err = c.Database.initDb().Save(&token)
-		err = c.Database.initDb().Save(&user)
+		err = app.GORM.Save(&token)
+		err = app.GORM.Save(&user)
 		if err.Error != nil {
 			panic(err.Error)
 		}
@@ -433,7 +433,7 @@ func (c App) Upload(avatar []byte) revel.Result {
 				foto.Format = format
 				foto.Size = len(avatar)
 				foto.UserId = user.UID
-				db := c.initDb().Create(&foto)
+				db := app.GORM.Create(&foto)
 				if db.Error != nil {
 					panic(db.Error)
 				}

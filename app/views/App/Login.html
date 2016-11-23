@@ -6,17 +6,23 @@
             <h1 font-color="black">Sign In</h1>
         </div>
         <form action="{{url "App.AuthApp"}}" method="POST" accept-charset="utf-8">
+            {{with $field := field "username" .}}
             <div class="form-group">
-                <input type="text" class="form-control" name="username" value="" placeholder="Username">
+                <input type="text" class="form-control" name="{{$field.Name}}" placeholder="Username">
             </div>
+            {{end}}
+            {{with $field := field "password" .}}
             <div class="form-group">
-                <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                <input type="password" class="form-control" name="{{$field.Name}}" placeholder="Password">
             </div>
+            {{end}}
+            {{with $field := field "remember" .}}
             <div class="checkbox">
             <label for="radior">
-                <input type="checkbox" name="remember" id="radior"> Remember me
+                <input type="checkbox" name="{{$field.Name}}" id="radior"> Remember me
             </label>
             </div>
+            {{end}}
             <input type="submit" class="btn btn-primary btn-md" value="Register">
         </form>
     </div>

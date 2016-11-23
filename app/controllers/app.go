@@ -156,10 +156,6 @@ func (c App) AddUserWithSosmed(user models.User, password, verifyPassword string
 	if err.Error != nil {
 		panic(err.Error)
 	}
-	err = app.GORM.Create(&user)
-	if err.Error != nil {
-		panic(err.Error)
-	}
 	c.Flash.Success("We have send to your emails")
 	return c.Redirect(routes.App.Login())
 }

@@ -25,7 +25,7 @@ func CheckError(err error) {
 }
 
 func (d Database) initDb() *gorm.DB {
-	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=verify-full", DB_HOST, DB_USER, DB_PASS, DB_NAME)
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", DB_HOST, DB_USER, DB_PASS, DB_NAME)
 	db, err := gorm.Open("postgres", dbinfo)
 	if err != nil {
 		CheckError(err)

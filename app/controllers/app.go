@@ -125,19 +125,7 @@ func (c App) AddUser(user models.User, password string) revel.Result {
 	return c.Redirect(routes.App.Login())
 }
 
-func (c App) AddUserWithSosmed(email, nama, username, password, verifyPassword, sosmedid, tipe string) revel.Result {
-	var user models.User
-	user.Nama = nama
-	user.Email = email
-	user.Username = username
-	user.Verify = false
-	if tipe == "fb" {
-		user.FbId = sosmedid
-	} else if tipe == "gplus" {
-		user.GplusId = sosmedid
-	} else if tipe == "twitter" {
-		user.TwitId = sosmedid
-	}
+func (c App) AddUserWithSosmed(user models.User, password, verifyPassword string) revel.Result {
 	c.Validation.Required(verifyPassword)
 	c.Validation.Required(verifyPassword == password).
 		Message("Password Not Match")

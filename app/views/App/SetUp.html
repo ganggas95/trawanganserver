@@ -13,19 +13,19 @@
         {{with $field := field "user.Email" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{$field.value}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{$field.Value}}">
         </div>
         {{end}}
         {{with $field := field "user.Nama" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{$field.value}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{$field.Value}}">
         </div>
         {{end}}
         {{with $field := field "user.Username" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/user.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{$field.value}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{$field.Value}}">
         </div>
         {{end}}
         {{with $field := field "password" .}}
@@ -41,13 +41,13 @@
         </div>
         {{end}}
             {{with $field := field "user.FbId" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.Value}}">
             {{end}}
             {{with $field := field "user.GplusId" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.Value}}">
             {{end}}
             {{with $field := field "user.TwitId" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.Value}}">
             {{end}}
 
         {{if .flash}}

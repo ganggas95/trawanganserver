@@ -126,6 +126,12 @@ func (c App) AddUser(user models.User, password string) revel.Result {
 }
 
 func (c App) AddUserWithSosmed(user models.User, password, verifyPassword string) revel.Result {
+	var usr models.User
+	db := app.GORM.Where("email = ?", user.Email).Find(&usr)
+	if !db.RecordNotFound() {
+		c.Flash.Error("You was registered in system")
+		return c.Redirect(routes.App.Login())
+	}
 	c.Validation.Required(verifyPassword)
 	c.Validation.Required(verifyPassword == password).
 		Message("Password Not Match")

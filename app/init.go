@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/ganggas95/trawanganserver/app/models"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/lib/pq"
 	"github.com/revel/revel"
 )
 
@@ -42,17 +42,12 @@ func init() {
 func InitDB() {
 	var err error
 	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", DB_HOST, DB_USER, DB_PASS, DB_NAME)
-	GORM, err = gorm.Open(revel.Config.StringDefault("db.driver", "postgres"), revel.Config.StringDefault("db.spec", dbinfo))
+	GORM, err = gorm.Open("postgres", dbinfo)
 	if err != nil {
 		revel.INFO.Println("Db Error ", err)
 	}
-	createTable(GORM)
-	GORM.LogMode(true)
-	revel.INFO.Println("Db COnnected")
-}
-func createTable(db *gorm.DB) {
-	db.SingularTable(true)
-	db.AutoMigrate(&models.AgentTravel{},
+	GORM.SingularTable(true)
+	GORM.AutoMigrate(&models.AgentTravel{},
 		&models.User{},
 		&models.UserToken{},
 		&models.Person{},
@@ -61,7 +56,8 @@ func createTable(db *gorm.DB) {
 		&models.FotoService{},
 		&models.AddOnService{},
 	)
-
+	GORM.LogMode(true)
+	revel.INFO.Println("Db COnnected")
 }
 
 // TODO turn this into revel.HeaderFilter

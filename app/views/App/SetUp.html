@@ -11,25 +11,26 @@
             <h4 style="color:#a8aa9e">Register</h4>
         </div>
         {{if .users.FbId}}
-        {{with $field := field "sosmedid" .}}
-        <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
-        {{end}}
-        {{with $field := field "tipe" .}}
-        <input type="hidden" name="{{$field.Name}}" value="fb">
-        {{end}}
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="fb">
+            {{end}}
         {{else if .users.GplusId}}
-        {{with $field := field "sosmedid" .}}
-        <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
-        {{end}}
-        {{with $field := field "tipe" .}}
-        <input type="hidden" name="{{$field.Name}}" value="gplus">
-        {{end}}
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="gplus">
+            {{end}}
         {{else if .users.TwitId}}
-        {{with $field := field "sosmedid" .}}
-        <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
-        {{end}}
-        {{with $field := field "tipe" .}}
-        <input type="hidden" name="{{$field.Name}}" value="twitter">
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="twitter">
+            {{end}}
         {{end}}
         {{with $field := field "email" .}}
         <div class="input-group form-child">

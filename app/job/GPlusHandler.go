@@ -24,7 +24,7 @@ var config = &oauth2.Config{
 	Scopes:   []string{plus.UserinfoEmailScope},
 	Endpoint: google.Endpoint,
 	// Use "postmessage" for the code-flow for server side apps
-	RedirectURL: "http://localhost:9000/verifygplus",
+	RedirectURL: "https://trawanganserver.herokuapp.com/verifygplus",
 }
 
 func (g GplusHandler) GetUrlPlus() string {

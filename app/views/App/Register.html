@@ -7,7 +7,7 @@
         <div align="center">
         <h1 font-color="black">Sign Up</h1>
         </div>
-            <form action="{{url "App.AddUser"}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+            <form action="{{url "App.AddUser"}}" method="POST" accept-charset="utf-8">
                  {{with $field := field "user.Nama" .}}
                 <div class="form-group {{$field.ErrorClass}}">
                     <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" placeholder="Your Name">      <span class="error">{{$field.Error}}</span>           

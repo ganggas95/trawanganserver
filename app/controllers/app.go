@@ -309,6 +309,7 @@ func (c App) GplusAuth(code string) revel.Result {
 	user := new(models.User)
 	user.Nama = nama
 	user.Username = username
+	user.GplusId = id
 	if len(people.Emails) > 0 {
 		user.Email = people.Emails[0].Value
 		return c.Redirect(routes.App.SetUp(user))

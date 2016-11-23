@@ -10,22 +10,22 @@
         <div class="form-child-button" align="center">
             <h4 style="color:#a8aa9e">Register</h4>
         </div>
-        {{with $field := field "email" .}}
+        {{with $field := field "user.Email" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{ .users.Email}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{$field.value}}">
         </div>
         {{end}}
-        {{with $field := field "nama" .}}
+        {{with $field := field "user.Nama" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{ .users.Nama}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{$field.value}}">
         </div>
         {{end}}
-        {{with $field := field "username" .}}
+        {{with $field := field "user.Username" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/user.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{ .users.Username}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{$field.value}}">
         </div>
         {{end}}
         {{with $field := field "password" .}}
@@ -40,28 +40,15 @@
             <input type="password" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon5" id="verifyPassword"  placeholder="Verify  Password">
         </div>
         {{end}}
-        {{if .users.FbId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
+            {{with $field := field "user.FbId" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
             {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="fb">
+            {{with $field := field "user.GplusId" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
             {{end}}
-        {{else if .users.GplusId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
+            {{with $field := field "user.TwitId" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{$field.value}}">
             {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="gplus">
-            {{end}}
-        {{else if .users.TwitId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
-            {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="twitter">
-            {{end}}
-        {{end}}
 
         {{if .flash}}
             {{template "flash.html" .}}

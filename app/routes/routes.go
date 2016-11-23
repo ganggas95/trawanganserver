@@ -39,13 +39,11 @@ func (_ tApp) Register(
 func (_ tApp) AddUser(
 		user interface{},
 		password string,
-		avatar []byte,
 		) string {
 	args := make(map[string]string)
 	
 	revel.Unbind(args, "user", user)
 	revel.Unbind(args, "password", password)
-	revel.Unbind(args, "avatar", avatar)
 	return revel.MainRouter.Reverse("App.AddUser", args).Url
 }
 
@@ -84,21 +82,11 @@ func (_ tApp) AuthApp(
 }
 
 func (_ tApp) SetUp(
-		nama string,
-		email string,
-		username string,
-		fb string,
-		gplus string,
-		twit string,
+		user interface{},
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "nama", nama)
-	revel.Unbind(args, "email", email)
-	revel.Unbind(args, "username", username)
-	revel.Unbind(args, "fb", fb)
-	revel.Unbind(args, "gplus", gplus)
-	revel.Unbind(args, "twit", twit)
+	revel.Unbind(args, "user", user)
 	return revel.MainRouter.Reverse("App.SetUp", args).Url
 }
 
@@ -251,6 +239,103 @@ func (_ tStatic) ServeModule(
 }
 
 
+type tPersons struct {}
+var Persons tPersons
+
+
+func (_ tPersons) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Index", args).Url
+}
+
+func (_ tPersons) List(
+		search string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "search", search)
+	return revel.MainRouter.Reverse("Persons.List", args).Url
+}
+
+func (_ tPersons) Show(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Show", args).Url
+}
+
+func (_ tPersons) UnverifyAcc(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.UnverifyAcc", args).Url
+}
+
+func (_ tPersons) Tambah(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Tambah", args).Url
+}
+
+func (_ tPersons) AddData(
+		person interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "person", person)
+	return revel.MainRouter.Reverse("Persons.AddData", args).Url
+}
+
+func (_ tPersons) Delete(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Delete", args).Url
+}
+
+func (_ tPersons) Ubah(
+		nama string,
+		alamat string,
+		tempatlahir string,
+		pekerjaan string,
+		tanggallahir interface{},
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "nama", nama)
+	revel.Unbind(args, "alamat", alamat)
+	revel.Unbind(args, "tempatlahir", tempatlahir)
+	revel.Unbind(args, "pekerjaan", pekerjaan)
+	revel.Unbind(args, "tanggallahir", tanggallahir)
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.Ubah", args).Url
+}
+
+func (_ tPersons) GetData(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Persons.GetData", args).Url
+}
+
+func (_ tPersons) Logout(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Persons.Logout", args).Url
+}
+
+
 type tAgent struct {}
 var Agent tAgent
 
@@ -376,103 +461,6 @@ func (_ tApi) AddUser(
 	revel.Unbind(args, "user", user)
 	revel.Unbind(args, "password", password)
 	return revel.MainRouter.Reverse("Api.AddUser", args).Url
-}
-
-
-type tPersons struct {}
-var Persons tPersons
-
-
-func (_ tPersons) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Persons.Index", args).Url
-}
-
-func (_ tPersons) List(
-		search string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "search", search)
-	return revel.MainRouter.Reverse("Persons.List", args).Url
-}
-
-func (_ tPersons) Show(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("Persons.Show", args).Url
-}
-
-func (_ tPersons) UnverifyAcc(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Persons.UnverifyAcc", args).Url
-}
-
-func (_ tPersons) Tambah(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Persons.Tambah", args).Url
-}
-
-func (_ tPersons) AddData(
-		person interface{},
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "person", person)
-	return revel.MainRouter.Reverse("Persons.AddData", args).Url
-}
-
-func (_ tPersons) Delete(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("Persons.Delete", args).Url
-}
-
-func (_ tPersons) Ubah(
-		nama string,
-		alamat string,
-		tempatlahir string,
-		pekerjaan string,
-		tanggallahir interface{},
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "nama", nama)
-	revel.Unbind(args, "alamat", alamat)
-	revel.Unbind(args, "tempatlahir", tempatlahir)
-	revel.Unbind(args, "pekerjaan", pekerjaan)
-	revel.Unbind(args, "tanggallahir", tanggallahir)
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("Persons.Ubah", args).Url
-}
-
-func (_ tPersons) GetData(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("Persons.GetData", args).Url
-}
-
-func (_ tPersons) Logout(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Persons.Logout", args).Url
 }
 
 

@@ -145,7 +145,7 @@ func (c App) AddUserWithSosmed(email, nama, username, password, verifyPassword, 
 	if c.Validation.HasErrors() {
 		c.Validation.Keep()
 		c.FlashParams()
-		return c.Redirect(routes.App.SetUp(user.Nama, user.Email, user.Username, user.FbId, user.GplusId, user.TwitId))
+		return c.Redirect(routes.App.SetUp(user))
 	}
 	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 
@@ -198,31 +198,17 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 	return c.Redirect(routes.App.Login())
 }
 
-func (c App) SetUp(nama, email, username, fb, gplus, twit string) revel.Result {
-	user := c.connected()
-	if user != nil {
+func (c App) SetUp(user models.User) revel.Result {
+	usr := c.connected()
+	if usr != nil {
 		return c.Redirect(routes.Persons.List(""))
 	}
-	var users models.User
-	users.Nama = nama
-	users.Username = username
-	users.Email = email
-	if fb != "" {
-		users.FbId = fb
-		c.RenderArgs["users"] = users
-		return c.Render(users)
-	} else if gplus != "" {
-		users.GplusId = gplus
-		c.RenderArgs["users"] = users
-		return c.Render(users)
-	} else if twit != "" {
-		users.TwitId = twit
-		c.RenderArgs["users"] = users
-		return c.Render(users)
-	} else {
-		c.Flash.Error("You don't have any prosess")
-		return c.Redirect(routes.App.Index())
+	if &user != nil {
+		c.RenderArgs["user"] = user
+		return c.Render(user)
 	}
+	c.Flash.Error("You don't have any prosess")
+	return c.Redirect(routes.App.Index())
 
 }
 
@@ -237,8 +223,8 @@ func (c App) AuthFb(code string) revel.Result {
 	token := c.GetToken(code)
 	response := c.GetResponse(token)
 	str := job.ReadHttpBody(response)
-	user, _ := jason.NewObjectFromBytes([]byte(str))
-	id, _ := user.GetString("id")
+	usr, _ := jason.NewObjectFromBytes([]byte(str))
+	id, _ := usr.GetString("id")
 
 	var userfb models.User
 	err := app.GORM.Where("fbid = ?", id).Find(&userfb)
@@ -266,8 +252,12 @@ func (c App) AuthFb(code string) revel.Result {
 	}
 	username := strings.Split(email, "@")[0]
 	nama := res1["name"].(string)
-
-	return c.Redirect(routes.App.SetUp(nama, email, username, id, "", ""))
+	user := new(models.User)
+	user.Nama = nama
+	user.Email = email
+	user.Username = username
+	user.FbId = id
+	return c.Redirect(routes.App.SetUp(user))
 
 }
 
@@ -301,23 +291,27 @@ func (c App) GplusAuth(code string) revel.Result {
 	people := c.GetPeoplePlus(plusService)
 	nama := people.Name.FamilyName
 	id := people.Id
-	var user models.User
-	err := app.GORM.Where("gplusid = ?", id).Find(&user)
+	var usr models.User
+	err := app.GORM.Where("gplusid = ?", id).Find(&usr)
 	if !err.RecordNotFound() {
-		c.Session["user"] = user.Username
-		c.RenderArgs["user"] = user.Username
+		c.Session["user"] = usr.Username
+		c.RenderArgs["user"] = usr.Username
 		return c.Redirect(routes.Persons.List(""))
 	}
 
 	var username string
 	if people.Nickname == "" {
-		username = people.DisplayName
+		username = people.Name.FamilyName
 	} else {
 		username = people.Nickname
 	}
 
-	for a := 0; a < len(people.Emails); a++ {
-		return c.Redirect(routes.App.SetUp(nama, people.Emails[0].Value, username, "", id, ""))
+	user := new(models.User)
+	user.Nama = nama
+	user.Username = username
+	if len(people.Emails) > 0 {
+		user.Email = people.Emails[0].Value
+		return c.Redirect(routes.App.SetUp(user))
 	}
 	return c.Redirect(routes.App.Login())
 }

@@ -203,13 +203,8 @@ func (c App) SetUp(user models.User) revel.Result {
 	if usr != nil {
 		return c.Redirect(routes.Persons.List(""))
 	}
-	if user != nil {
-		c.RenderArgs["user"] = user
-		return c.Render(user)
-	} else {
-		c.Flash.Error("You don't have any prosess")
-		return c.Redirect(routes.App.Index())
-	}
+	c.RenderArgs["user"] = user
+	return c.Render(user)
 
 }
 

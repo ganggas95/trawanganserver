@@ -36,8 +36,8 @@ func InitDB() {
 	var err error
 	DB_HOST := revel.Config.StringDefault("db.host", "")
 	DB_USER := revel.Config.StringDefault("db.user", "")
-	DB_PASS := revel.Config.StringDefault("db.password", "")
-	DB_NAME := revel.Config.StringDefault("db.database", "")
+	DB_PASS := revel.Config.StringDefault("db.pass", "")
+	DB_NAME := revel.Config.StringDefault("db.name", "")
 
 	GORM, err = gorm.Open(revel.Config.StringDefault("db.driver", ""), fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DB_HOST, DB_USER, DB_PASS, DB_NAME))
 	if err != nil {

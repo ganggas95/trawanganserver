@@ -198,12 +198,12 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 	return c.Redirect(routes.App.Login())
 }
 
-func (c App) SetUp(user models.User) revel.Result {
+func (c App) SetUp(user *models.User) revel.Result {
 	usr := c.connected()
 	if usr != nil {
 		return c.Redirect(routes.Persons.List(""))
 	}
-	if &user != nil {
+	if user != nil {
 		c.RenderArgs["user"] = user
 		return c.Render(user)
 	}

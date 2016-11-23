@@ -107,7 +107,6 @@ func (c App) AddUser(user models.User, password string) revel.Result {
 	}
 	c.Validation.Required(password)
 	user.Validation(c.Validation)
-
 	user.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	tok := job.RandomToken(32)
 	err3 := job.SendToken(user.Email, tok)
@@ -117,10 +116,10 @@ func (c App) AddUser(user models.User, password string) revel.Result {
 	var token models.UserToken
 	token.AccessToken = tok
 	token.User = user
-	err := app.GORM.Create(&token)
-	err = app.GORM.Create(&user)
-	if err != nil {
-		panic(err.Error)
+	db = app.GORM.Create(&token)
+	db = app.GORM.Create(&user)
+	if db.Error != nil {
+		panic(db.Error)
 	}
 	c.Flash.Success("We have send to your emails")
 	return c.Redirect(routes.App.Login())
@@ -217,8 +216,10 @@ func (c App) SetUp(nama, email, username, fb, gplus, twit string) revel.Result {
 	} else if twit != "" {
 		users.TwitId = twit
 		return c.Render(users)
+	} else {
+		c.Flash.Error("You don't have any prosess")
+		return c.Redirect(routes.App.Index())
 	}
-	return c.Render()
 
 }
 

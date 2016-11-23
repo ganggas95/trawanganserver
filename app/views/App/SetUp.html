@@ -10,28 +10,6 @@
         <div class="form-child-button" align="center">
             <h4 style="color:#a8aa9e">Register</h4>
         </div>
-        {{if .users.FbId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
-            {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="fb">
-            {{end}}
-        {{else if .users.GplusId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
-            {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="gplus">
-            {{end}}
-        {{else if .users.TwitId}}
-            {{with $field := field "sosmedid" .}}
-            <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
-            {{end}}
-            {{with $field := field "tipe" .}}
-            <input type="hidden" name="{{$field.Name}}" value="twitter">
-            {{end}}
-        {{end}}
         {{with $field := field "email" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
@@ -62,6 +40,29 @@
             <input type="password" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon5" id="verifyPassword"  placeholder="Verify  Password">
         </div>
         {{end}}
+        {{if .users.FbId}}
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="fb">
+            {{end}}
+        {{else if .users.GplusId}}
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="gplus">
+            {{end}}
+        {{else if .users.TwitId}}
+            {{with $field := field "sosmedid" .}}
+            <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
+            {{end}}
+            {{with $field := field "tipe" .}}
+            <input type="hidden" name="{{$field.Name}}" value="twitter">
+            {{end}}
+        {{end}}
+
         {{if .flash}}
             {{template "flash.html" .}}
             {{end}}

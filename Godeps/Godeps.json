@@ -1,0 +1,9 @@
+{
+	"ImportPath": "github.com/ganggas95/trawanganserver",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v75",
+	"Packages": [
+		"./"
+	],
+	"Deps": []
+}

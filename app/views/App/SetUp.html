@@ -11,35 +11,56 @@
             <h4 style="color:#a8aa9e">Register</h4>
         </div>
         {{if .users.FbId}}
-        <input type="hidden" name="sosmedid" value="{{ .users.FbId }}">
-        <input type="hidden" name="tipe" value="fb">
-        {{else if .users.GplusId}}
-        <input type="hidden" name="sosmedid" value="{{ .users.GplusId }}">
-        <input type="hidden" name="tipe" value="gplus">
-        {{else if .users.TwitId}}
-        <input type="hidden" name="sosmedid" value="{{ .users.TwitId }}">
-        <input type="hidden" name="tipe" value="twitter">
+        {{with $field := field "sosmedid" .}}
+        <input type="hidden" name="{{$field.Name}}" value="{{ .users.FbId }}">
         {{end}}
+        {{with $field := field "tipe" .}}
+        <input type="hidden" name="{{$field.Name}}" value="fb">
+        {{end}}
+        {{else if .users.GplusId}}
+        {{with $field := field "sosmedid" .}}
+        <input type="hidden" name="{{$field.Name}}" value="{{ .users.GplusId }}">
+        {{end}}
+        {{with $field := field "tipe" .}}
+        <input type="hidden" name="{{$field.Name}}" value="gplus">
+        {{end}}
+        {{else if .users.TwitId}}
+        {{with $field := field "sosmedid" .}}
+        <input type="hidden" name="{{$field.Name}}" value="{{ .users.TwitId }}">
+        {{end}}
+        {{with $field := field "tipe" .}}
+        <input type="hidden" name="{{$field.Name}}" value="twitter">
+        {{end}}
+        {{with $field := field "email" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/email.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="email" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{ .users.Email}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="email" placeholder="Emails" value="{{ .users.Email}}">
         </div>
+        {{end}}
+        {{with $field := field "nama" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/fullname.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="nama" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{ .users.Nama}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="nama" placeholder="Nama" value="{{ .users.Nama}}">
         </div>
+        {{end}}
+        {{with $field := field "username" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/user.png" height="15px" width="15px"></span>
-            <input type="text" class="form-control" name="username" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{ .users.Username}}">
+            <input type="text" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="username" placeholder="Username" value="{{ .users.Username}}">
         </div>
+        {{end}}
+        {{with $field := field "password" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon4" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
-            <input type="password" class="form-control" name="password" aria-describedby="basic-addon4" id="password" placeholder="Password">
+            <input type="password" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon4" id="password" placeholder="Password">
         </div>
+        {{end}}
+        {{with $field := field "verifyPassword" .}}
         <div class="input-group form-child">
             <span class="input-group-addon" id="basic-addon5" ><img src="../../../public/img/pass.png" height="15px" width="15px"></span>
-            <input type="password" class="form-control" name="verifyPassword" aria-describedby="basic-addon5" id="verifyPassword"  placeholder="Verify  Password">
+            <input type="password" class="form-control" name="{{$field.Name}}" aria-describedby="basic-addon5" id="verifyPassword"  placeholder="Verify  Password">
         </div>
+        {{end}}
         {{if .flash}}
             {{template "flash.html" .}}
             {{end}}

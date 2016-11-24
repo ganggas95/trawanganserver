@@ -11,6 +11,10 @@ GET     /daftar_with_fb                 App.RegisterWithFacebook
 #GET    /daftar_with_google             App.RegisterWithGoogle
 GET     /daftar_with_gplus              App.RegisterWithGPlus
 GET     /daftar_with_twit               App.RegisterWithTwit
+GET     /login_with_gplus	            App.LoginWithGPlus
+GET     /login_with_fb		            App.LoginWithFacebook
+POST 	/login_with_gplus				App.GplusLogin
+POST 	/login_with_fb					App.LoginFb
 GET 	/setup						    App.SetUp
 POST    /auth                           App.AuthApp
 GET     /verifygplus                    App.GplusAuth

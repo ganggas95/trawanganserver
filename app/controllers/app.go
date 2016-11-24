@@ -117,7 +117,6 @@ func (c App) AddUser(user models.User, password string) revel.Result {
 	token.AccessToken = tok
 	token.User = user
 	db = app.GORM.Create(&token)
-	db = app.GORM.Create(&user)
 	if db.Error != nil {
 		panic(db.Error)
 	}
@@ -165,6 +164,7 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
 		if err == nil {
 			c.Session["user"] = user.Username
+			c.RenderArgs["user"] = user
 			if remember {
 				c.Session.SetDefaultExpiration()
 			} else {
@@ -213,7 +213,7 @@ func (c App) AuthFb(code string) revel.Result {
 	err := app.GORM.Where("fbid = ?", id).Find(&userfb)
 	if !err.RecordNotFound() {
 		c.Session["user"] = userfb.Username
-		c.RenderArgs["user"] = userfb.Username
+		c.RenderArgs["user"] = userfb
 		return c.Redirect(routes.Persons.List(""))
 	}
 
@@ -278,7 +278,7 @@ func (c App) GplusAuth(code string) revel.Result {
 	err := app.GORM.Where("gplusid = ?", id).Find(&usr)
 	if !err.RecordNotFound() {
 		c.Session["user"] = usr.Username
-		c.RenderArgs["user"] = usr.Username
+		c.RenderArgs["user"] = usr
 		return c.Redirect(routes.Persons.List(""))
 	}
 
@@ -297,6 +297,56 @@ func (c App) GplusAuth(code string) revel.Result {
 		user.Email = people.Emails[0].Value
 		return c.Redirect(routes.App.SetUp(&user))
 	}
+	return c.Redirect(routes.App.Login())
+}
+
+func (c App) LoginWithGPlus() revel.Result {
+	url := c.GetUrlPlus()
+	return c.Redirect(url)
+}
+
+func (c App) GplusLogin(code string) revel.Result {
+	token := c.GetTokenPlus(code)
+	client := c.GetClientPlus(token)
+	plusService := c.GetServicePlus(client)
+	people := c.GetPeoplePlus(plusService)
+	nama := people.Name.FamilyName
+	id := people.Id
+	var usr models.User
+	err := app.GORM.Where("gplusid = ?", id).Find(&usr)
+	if !err.RecordNotFound() {
+		c.Session["user"] = usr.Username
+		c.RenderArgs["user"] = usr
+		return c.Redirect(routes.Persons.List(""))
+	}
+	c.Flash.Error("You not registered. Pleas sign up!")
+	return c.Redirect(routes.App.Login())
+}
+
+func (c App) LoginWithFacebook() revel.Result {
+	url := c.FbHandler.GetUrlFb()
+	return c.Redirect(url)
+}
+func (c App) LoginFb(code string) revel.Result {
+	u := c.connected()
+	if u != nil {
+		c.Session["user"] = u.Username
+		c.RenderArgs["user"] = u
+		return c.Redirect(routes.Persons.List(""))
+	}
+	token := c.GetToken(code)
+	response := c.GetResponse(token)
+	str := job.ReadHttpBody(response)
+	usr, _ := jason.NewObjectFromBytes([]byte(str))
+	id, _ := usr.GetString("id")
+	var userfb models.User
+	err := app.GORM.Where("fbid = ?", id).Find(&userfb)
+	if !err.RecordNotFound() {
+		c.Session["user"] = userfb.Username
+		c.RenderArgs["user"] = userfb
+		return c.Redirect(routes.Persons.List(""))
+	}
+	c.Flash.Error("You not registered. Pleas sign up!")
 	return c.Redirect(routes.App.Login())
 }
 
@@ -321,7 +371,7 @@ func (c App) VerifyAcoount(code string) revel.Result {
 			panic(err.Error)
 		}
 		c.Session["user"] = user.Username
-		c.RenderArgs["user"] = user.Username
+		c.RenderArgs["user"] = user
 		return c.Redirect(routes.Persons.List(""))
 	} else {
 		c.Flash.Error("Your Account was active. ")

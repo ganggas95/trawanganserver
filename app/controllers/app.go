@@ -317,6 +317,7 @@ func (c App) GplusLogin(code string) revel.Result {
 	if !err.RecordNotFound() {
 		c.Session["user"] = usr.Username
 		c.RenderArgs["user"] = usr
+		c.Flash.Success("Wellcome " + nama)
 		return c.Redirect(routes.Persons.List(""))
 	}
 	c.Flash.Error("You not registered. Pleas sign up!")

@@ -172,20 +172,18 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 			}
 			if !user.Verify {
 				c.Flash.Error("Your account not verified. Check Your email to ferify your account!")
-				c.RenderArgs["user"] = username
 				return c.Redirect(routes.Persons.UnverifyAcc())
 
 			} else {
 				c.Flash.Success("Wellcome here, " + user.Username)
-				c.RenderArgs["user"] = username
 				return c.Redirect(routes.Persons.List(""))
 			}
 
 		}
+	} else {
+		c.Flash.Error("Login Failed")
+		return c.Redirect(routes.App.Login())
 	}
-	c.Flash.Out["username"] = username
-	c.Flash.Error("Login Failed")
-	return c.Redirect(routes.App.Login())
 }
 
 func (c App) SetUp(user models.User) revel.Result {

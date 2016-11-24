@@ -82,7 +82,7 @@ func (c App) Register() revel.Result {
 func (c App) GetUser(username string) *models.User {
 	var user models.User
 	err := app.GORM.Where("username = ? OR email = ?", username, username).Find(&user)
-	if err != nil {
+	if err.Error != nil {
 		panic(err.Error)
 	}
 	return &user
@@ -90,7 +90,7 @@ func (c App) GetUser(username string) *models.User {
 func (c App) GetUserWitId(idUser int64) *models.User {
 	var users models.User
 	err := app.GORM.First(&users, idUser)
-	if err != nil {
+	if err.Error != nil {
 		panic(err.Error)
 	}
 	return &users

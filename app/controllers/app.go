@@ -180,10 +180,9 @@ func (c App) AuthApp(username, password string, remember bool) revel.Result {
 			}
 
 		}
-	} else {
-		c.Flash.Error("Login Failed")
-		return c.Redirect(routes.App.Login())
 	}
+	c.Flash.Error("Login Failed")
+	return c.Redirect(routes.App.Login())
 }
 
 func (c App) SetUp(user models.User) revel.Result {
